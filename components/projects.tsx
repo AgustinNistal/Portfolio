@@ -54,6 +54,7 @@ const projects: Project[] = [
     ],
     technologies: ["TypeScript", "Next.js", "React", "Tailwind", "Vercel", "Yup", "Formik", "Shadcn", "Axios"],
     images: ["https://ik.imagekit.io/ankxi835d/cv/homehero1.png?updatedAt=1775353281506", "https://ik.imagekit.io/ankxi835d/cv/homehero2.png?updatedAt=1775353281494", "https://ik.imagekit.io/ankxi835d/cv/homehero3.png?updatedAt=1775353281684"],
+    liveUrl: "https://home-hero-front2-beta.vercel.app/",
   },
   {
     id: "sendero-sur",
@@ -82,6 +83,7 @@ const projects: Project[] = [
     ],
     technologies: ["Next.js", "React", "TailwindCSS", "Yup", "TypeScript"],
     images: ["https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-04-04%20223735.png?updatedAt=1775353282032", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-04-04%20223900.png?updatedAt=1775353281935", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-04-04%20223828.png?updatedAt=1775353281560"],
+    liveUrl: "/senderosur"
   },
   {
     id: "meditrack",
@@ -201,7 +203,7 @@ export function Projects() {
     <section id="projects" className="py-20 md:py-32 relative">
       <div className="container mx-auto px-4">
         <div ref={ref} className={`animate-on-scroll ${isVisible ? "visible" : ""}`}>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
             <span className="text-primary">{`// `}</span>
             {t("projects.title")}
           </h2>
@@ -228,7 +230,7 @@ export function Projects() {
                         <span className="text-muted-foreground text-sm">{project.period}</span>
                       </div>
 
-                      <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4">
+                      <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 font-title">
                         {language === "es" ? project.titleEs : project.titleEn}
                       </h3>
 

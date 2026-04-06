@@ -164,7 +164,7 @@ function ExperienceCard({ item, index, language }: { item: ExperienceItem; index
               )}
             </div>
             <div className="flex-1">
-              <h3 className="font-semibold text-foreground text-lg">
+              <h3 className="font-semibold text-foreground text-lg font-title">
                 {language === "es" ? item.titleEs : item.titleEn}
               </h3>
               <p className="text-primary font-medium">
@@ -207,7 +207,7 @@ export function Experience() {
           ref={sectionRef}
           className={`animate-on-scroll ${sectionVisible ? "visible" : ""}`}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
             <span className="text-primary">{`// `}</span>
             {t("experience.title")}
           </h2>
@@ -220,7 +220,7 @@ export function Experience() {
           </div>
 
           {/* Education Section */}
-          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground">
+          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground font-title">
             <span className="text-accent">{`// `}</span>
             {t("experience.education")}
           </h3>
@@ -232,7 +232,7 @@ export function Experience() {
           </div>
 
           {/* Languages Section */}
-          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground">
+          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground font-title">
             <span className="text-primary">{`// `}</span>
             {t("languages.title")}
           </h3>

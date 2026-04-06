@@ -76,7 +76,8 @@
 }
 
 @theme inline {
-  --font-sans: var(--font-sans), 'Space Grotesk', system-ui, sans-serif;
+  --font-sans: var(--font-handjet), 'Handjet', system-ui, sans-serif;
+  --font-title: var(--font-audiowide), 'Audiowide', cursive;
   --font-mono: var(--font-mono), 'JetBrains Mono', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -121,7 +122,10 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground antialiased;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 }
 

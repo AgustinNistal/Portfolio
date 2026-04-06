@@ -72,7 +72,7 @@ export function Skills() {
     <section className="py-20 md:py-32 relative bg-card/30">
       <div className="container mx-auto px-4">
         <div ref={ref} className={`animate-on-scroll ${isVisible ? "visible" : ""}`}>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
             <span className="text-primary">{`// `}</span>
             {t("skills.title")}
           </h2>
@@ -91,7 +91,7 @@ export function Skills() {
                       <div className="p-2 rounded-lg bg-primary/10">
                         <Icon className="w-5 h-5 text-primary" />
                       </div>
-                      <span className="text-lg">
+                      <span className="text-lg font-title">
                         {language === "es" ? category.titleKeyEs : category.titleKeyEn}
                       </span>
                     </CardTitle>

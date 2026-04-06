@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
-import { MapPin, Download, Github, Linkedin, Mail, Phone } from "lucide-react"
+import { MapPin, Github, Linkedin, Mail, Phone } from "lucide-react"
 import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
@@ -17,7 +17,7 @@ export function About() {
           ref={ref}
           className={`animate-on-scroll ${isVisible ? "visible" : ""}`}
         >
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground">
+          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
             <span className="text-primary">{`// `}</span>
             {t("about.title")}
           </h2>
@@ -96,15 +96,7 @@ export function About() {
                 </a>
               </div>
 
-              <Button
-                className="mt-4 bg-primary text-primary-foreground hover:bg-primary/90"
-                asChild
-              >
-                <a href="/cv-agustin-nistal.pdf" download>
-                  <Download className="w-4 h-4 mr-2" />
-                  {t("hero.download")}
-                </a>
-              </Button>
+
             </div>
           </div>
         </div>

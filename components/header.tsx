@@ -41,7 +41,7 @@ export function Header() {
         <div className="flex items-center justify-between h-16 md:h-20">
           <a
             href="#"
-            className="text-xl font-bold text-primary hover:text-accent transition-colors"
+            className="text-xl font-bold text-primary hover:text-accent transition-colors font-title"
           >
             AN
           </a>

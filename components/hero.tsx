@@ -2,7 +2,7 @@
 
 import { useLanguage } from "@/lib/language-context"
 import { Button } from "@/components/ui/button"
-import { ChevronDown, Download, ArrowRight } from "lucide-react"
+import { ChevronDown, ArrowRight } from "lucide-react"
 import { useEffect, useState } from "react"
 
 // Pre-computed star positions to avoid hydration mismatch
@@ -65,11 +65,11 @@ export function Hero() {
           <p className="text-primary font-mono text-sm md:text-base mb-4 tracking-wider animate-fade-in">
             {t("hero.greeting")}
           </p>
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-foreground text-balance">
+          <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-foreground text-balance font-title">
             Agustín Nistal
             <span className="block text-primary mt-2">Igarzabal</span>
           </h1>
-          <h2 className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-2">
+          <h2 className="text-xl md:text-2xl lg:text-3xl text-muted-foreground font-light mb-2 font-title">
             {t("hero.role")}
           </h2>
           <p className="text-sm md:text-base text-muted-foreground/80 mb-8 max-w-2xl mx-auto">
@@ -87,17 +87,7 @@ export function Hero() {
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
             </Button>
-            <Button
-              variant="outline"
-              size="lg"
-              className="border-accent text-accent hover:bg-accent/10"
-              asChild
-            >
-              <a href="/cv-agustin-nistal.pdf" download>
-                <Download className="mr-2 w-4 h-4" />
-                {t("hero.download")}
-              </a>
-            </Button>
+
           </div>
         </div>
 
