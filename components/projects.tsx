@@ -5,9 +5,23 @@ import { useLanguage } from "@/lib/language-context"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, ChevronRight, ExternalLink, Github } from "lucide-react"
+import { ChevronLeft, ChevronRight, ExternalLink, Github, ZoomIn, X } from "lucide-react"
 import Image from "next/image"
 import { useScrollAnimation } from "@/hooks/use-scroll-animation"
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+  DialogClose,
+  DialogTitle,
+} from "@/components/ui/dialog"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel"
 
 interface Project {
   id: string
@@ -128,15 +142,48 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
 
   return (
     <div className="relative group">
-      <div className="aspect-video relative overflow-hidden rounded-lg">
-        <Image
-          src={images[currentIndex]}
-          alt={`${title} - Image ${currentIndex + 1}`}
-          fill
-          className="object-cover transition-transform duration-500"
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
-      </div>
+      <Dialog>
+        <DialogTrigger asChild>
+          <div className="aspect-video relative overflow-hidden rounded-lg cursor-zoom-in">
+            <Image
+              src={images[currentIndex]}
+              alt={`${title} - Image ${currentIndex + 1}`}
+              fill
+              className="object-cover transition-transform duration-500 group-hover:scale-105"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
+              <div className="bg-background/80 backdrop-blur-sm p-2 rounded-full shadow-lg">
+                <ZoomIn className="w-6 h-6 text-primary" />
+              </div>
+            </div>
+          </div>
+        </DialogTrigger>
+        <DialogContent className="max-w-[95vw] sm:max-w-[90vw] md:max-w-[85vw] lg:max-w-[80vw] border-none bg-black/90 p-0 shadow-none sm:rounded-none h-[95vh]">
+          <DialogTitle className="sr-only">Project Images - {title}</DialogTitle>
+          <div className="relative w-full h-full flex items-center justify-center">
+            <Carousel className="w-full h-full" opts={{ startIndex: currentIndex }}>
+              <CarouselContent className="h-full items-center">
+                {images.map((img, index) => (
+                  <CarouselItem key={index} className="h-full flex items-center justify-center p-0">
+                    <div className="relative w-full h-full flex items-center justify-center">
+                      <Image
+                        src={img}
+                        alt={`${title} - Full Image ${index + 1}`}
+                        fill
+                        className="object-contain p-2"
+                        priority
+                      />
+                    </div>
+                  </CarouselItem>
+                ))}
+              </CarouselContent>
+              <CarouselPrevious className="left-4 size-10 bg-background/20 hover:bg-background/40 border-none text-white" />
+              <CarouselNext className="right-4 size-10 bg-background/20 hover:bg-background/40 border-none text-white" />
+            </Carousel>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       {/* Navigation Buttons */}
       {images.length > 1 && (

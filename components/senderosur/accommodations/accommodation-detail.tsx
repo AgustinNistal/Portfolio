@@ -1,13 +1,21 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import { Button } from "@/components/senderosur/ui/button"
-import { MapPin, Star, Users, Wifi, Car, Coffee, Waves, Mountain, Telescope, Check } from "lucide-react"
+import { MapPin, Star, Users, Wifi, Car, Coffee, Waves, Mountain, Telescope, Check, ChevronLeft, ChevronRight } from "lucide-react"
 import { BookingModal } from "@/components/senderosur/accommodations/booking-modal"
 import { ReviewsSection } from "@/components/senderosur/accommodations/reviews-section"
 import type { Accommodation, City } from "@/lib/senderosur/data"
 import { useLanguage } from "@/contexts/senderosur/language-context"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/senderosur/ui/carousel"
 
 interface AccommodationDetailProps {
   accommodation: Accommodation
@@ -32,6 +40,15 @@ export function AccommodationDetail({ accommodation, city }: AccommodationDetail
 
   const [bookingOpen, setBookingOpen] = useState(false)
   const [selectedImage, setSelectedImage] = useState(0)
+  const [api, setApi] = useState<CarouselApi>()
+
+  useEffect(() => {
+    if (!api) return
+
+    api.on("select", () => {
+      setSelectedImage(api.selectedScrollSnap())
+    })
+  }, [api])
 
   const images = [
     accommodation.images[0] || "/placeholder.svg?height=600&width=800",
@@ -44,8 +61,38 @@ export function AccommodationDetail({ accommodation, city }: AccommodationDetail
     <div className="min-h-screen bg-background">
       {/* Image Gallery */}
       <section className="relative">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 max-h-[70vh]">
-          <div className="relative h-[50vh] md:h-[70vh]">
+        {/* Mobile Carousel */}
+        <div className="md:hidden">
+          <Carousel setApi={setApi} className="w-full">
+            <CarouselContent>
+              {images.map((img, idx) => (
+                <CarouselItem key={idx}>
+                  <div className="relative h-[50vh]">
+                    <Image
+                      src={img || "/placeholder.svg"}
+                      alt={`${accommodation.name} - ${idx + 1}`}
+                      fill
+                      className="object-cover"
+                    />
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+            <div className="absolute inset-x-0 bottom-4 flex justify-center gap-2 z-10">
+              {images.map((_, idx) => (
+                <div
+                  key={idx}
+                  className={`w-2 h-2 rounded-full transition-colors ${idx === selectedImage ? "bg-background" : "bg-background/50"
+                    }`}
+                />
+              ))}
+            </div>
+          </Carousel>
+        </div>
+
+        {/* Desktop Grid */}
+        <div className="hidden md:grid grid-cols-2 gap-2 max-h-[70vh]">
+          <div className="relative h-[70vh]">
             <Image
               src={images[selectedImage] || "/placeholder.svg"}
               alt={accommodation.name}
@@ -54,7 +101,7 @@ export function AccommodationDetail({ accommodation, city }: AccommodationDetail
               priority
             />
           </div>
-          <div className="hidden md:grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {images.slice(1, 5).map((img, idx) => (
               <button
                 key={idx}
@@ -71,18 +118,6 @@ export function AccommodationDetail({ accommodation, city }: AccommodationDetail
               </button>
             ))}
           </div>
-        </div>
-
-        {/* Mobile image indicators */}
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2 md:hidden">
-          {images.map((_, idx) => (
-            <button
-              key={idx}
-              onClick={() => setSelectedImage(idx)}
-              className={`w-2 h-2 rounded-full transition-colors ${idx === selectedImage ? "bg-background" : "bg-background/50"
-                }`}
-            />
-          ))}
         </div>
       </section>
 

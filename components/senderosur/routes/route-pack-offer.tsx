@@ -37,10 +37,10 @@ export function RoutePackOffer({ route }: RoutePackOfferProps) {
             <div className="p-8 md:p-10">
               <div className="flex items-center gap-2 text-accent mb-4">
                 <Package className="h-6 w-6" />
-                <span className="font-medium">{t("booking.pack.title")}</span>
+                <span className="font-medium text-lg uppercase tracking-wider">{t("booking.confirm")}</span>
               </div>
 
-              <h2 className="font-serif text-2xl md:text-3xl text-foreground mb-4">{t("booking.pack.title")}</h2>
+              <h2 className="font-serif text-3xl md:text-4xl text-foreground mb-4">{t("booking.pack.reserve_title")}</h2>
 
               <p className="text-muted-foreground mb-6">
                 Obtené un precio especial reservando todas las noches de hospedaje de esta ruta. Incluye{" "}
@@ -83,9 +83,9 @@ export function RoutePackOffer({ route }: RoutePackOfferProps) {
                 <Button
                   size="lg"
                   onClick={handleBookPack}
-                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90"
+                  className="w-full bg-accent text-accent-foreground hover:bg-accent/90 py-6 text-lg font-medium"
                 >
-                  {t("booking.pack.title")}
+                  {t("booking.pack.confirm")}
                 </Button>
 
                 <p className="text-xs text-muted-foreground mt-4">
