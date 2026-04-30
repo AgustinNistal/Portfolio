@@ -271,21 +271,21 @@ export function Projects() {
                     {/* Content */}
                     <div className="p-6 lg:p-8 flex flex-col justify-center">
                       <div className="flex items-center gap-3 mb-2">
-                        <Badge variant="outline" className="border-primary text-primary">
+                        <Badge variant="outline" className="border-primary text-primary text-lg px-3 py-1">
                           {language === "es" ? project.roleEs : project.roleEn}
                         </Badge>
-                        <span className="text-muted-foreground text-sm">{project.period}</span>
+                        <span className="text-muted-foreground text-lg">{project.period}</span>
                       </div>
 
                       <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 font-title">
                         {language === "es" ? project.titleEs : project.titleEn}
                       </h3>
 
-                      <p className="text-muted-foreground mb-6">
+                      <p className="text-muted-foreground text-lg mb-6">
                         {language === "es" ? project.descriptionEs : project.descriptionEn}
                       </p>
 
-                      <ul className="text-muted-foreground text-sm space-y-2 mb-6">
+                      <ul className="text-muted-foreground text-lg space-y-2 mb-6">
                         {(language === "es" ? project.detailsEs : project.detailsEn).map((detail, i) => (
                           <li key={i} className="flex items-start gap-2">
                             <span className="text-primary mt-1">▹</span>
@@ -296,7 +296,7 @@ export function Projects() {
 
                       <div className="flex flex-wrap gap-2 mb-6">
                         {project.technologies.map((tech) => (
-                          <Badge key={tech} variant="secondary" className="bg-secondary/50">
+                          <Badge key={tech} variant="secondary" className="bg-secondary/50 text-lg px-3 py-1">
                             {tech}
                           </Badge>
                         ))}

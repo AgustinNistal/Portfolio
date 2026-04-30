@@ -89,9 +89,9 @@ export function Skills() {
                   <CardHeader>
                     <CardTitle className="flex items-center gap-3 text-foreground">
                       <div className="p-2 rounded-lg bg-primary/10">
-                        <Icon className="w-5 h-5 text-primary" />
+                        <Icon className="w-6 h-6 text-primary" />
                       </div>
-                      <span className="text-lg font-title">
+                      <span className="xl font-title">
                         {language === "es" ? category.titleKeyEs : category.titleKeyEn}
                       </span>
                     </CardTitle>
@@ -105,7 +105,7 @@ export function Skills() {
                         <Badge
                           key={skill}
                           variant="outline"
-                          className="border-border hover:border-primary hover:text-primary transition-colors"
+                          className="border-border hover:border-primary hover:text-primary transition-colors text-lg px-4 py-2"
                         >
                           {skill}
                         </Badge>

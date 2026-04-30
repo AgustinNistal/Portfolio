@@ -18,8 +18,8 @@ export default function PortfolioPage() {
         <main>
           <Hero />
           <About />
-          <Experience />
           <Projects />
+          <Experience />
           <Skills />
           <Contact />
         </main>

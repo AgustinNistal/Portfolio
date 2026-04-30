@@ -207,6 +207,29 @@ export function Experience() {
           ref={sectionRef}
           className={`animate-on-scroll ${sectionVisible ? "visible" : ""}`}
         >
+          {/* Languages Section */}
+          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground font-title">
+            <span className="text-primary">{`// `}</span>
+            {t("languages.title")}
+          </h3>
+
+          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto mb-12">
+            {languages.map((lang, i) => (
+              <Card key={i} className="bg-card/50 border-border backdrop-blur-sm hover:border-primary/50 transition-all duration-300 min-w-[180px]">
+                <CardContent className="p-6 flex items-center gap-4">
+                  <Languages className="w-6 h-6 text-primary" />
+                  <div>
+                    <span className="text-foreground font-medium block text-lg">
+                      {language === "es" ? lang.nameEs.split(" ")[0] : lang.nameEn.split(" ")[0]}
+                    </span>
+                    <span className="text-muted-foreground text-lg">
+                      {language === "es" ? lang.levelEs : lang.levelEn}
+                    </span>
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
           <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
             <span className="text-primary">{`// `}</span>
             {t("experience.title")}
@@ -231,29 +254,7 @@ export function Experience() {
             ))}
           </div>
 
-          {/* Languages Section */}
-          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground font-title">
-            <span className="text-primary">{`// `}</span>
-            {t("languages.title")}
-          </h3>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto">
-            {languages.map((lang, i) => (
-              <Card key={i} className="bg-card/50 border-border backdrop-blur-sm hover:border-primary/50 transition-all duration-300">
-                <CardContent className="p-4 flex items-center gap-3">
-                  <Languages className="w-5 h-5 text-primary" />
-                  <div>
-                    <span className="text-foreground font-medium block">
-                      {language === "es" ? lang.nameEs.split(" ")[0] : lang.nameEn.split(" ")[0]}
-                    </span>
-                    <span className="text-muted-foreground text-sm">
-                      {language === "es" ? lang.levelEs : lang.levelEn}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
         </div>
       </div>
     </section>
