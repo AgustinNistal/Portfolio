@@ -125,7 +125,7 @@ const projects: Project[] = [
       "Connection with Nest.js backend and PostgreSQL database",
     ],
     technologies: ["React Native", "Nest.js", "PostgreSQL", "TypeScript"],
-    images: ["/images/projects/meditrack-1.jpg", "/images/projects/meditrack-2.jpg"],
+    images: ["https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121424.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121550.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121624.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121903.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121903.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122033.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122053.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122114.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122135.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122218.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122241.png"],
   },
 ]
 
@@ -214,9 +214,8 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`relative w-16 h-10 rounded overflow-hidden border-2 transition-all ${
-                index === currentIndex ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"
-              }`}
+              className={`relative w-16 h-10 rounded overflow-hidden border-2 transition-all ${index === currentIndex ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"
+                }`}
             >
               <Image src={img} alt={`Thumbnail ${index + 1}`} fill className="object-cover" />
             </button>
@@ -231,9 +230,8 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
             <button
               key={index}
               onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${
-                index === currentIndex ? "bg-primary w-4" : "bg-foreground/50"
-              }`}
+              className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? "bg-primary w-4" : "bg-foreground/50"
+                }`}
             />
           ))}
         </div>
