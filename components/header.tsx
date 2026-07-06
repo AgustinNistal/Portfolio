@@ -20,9 +20,10 @@ export function Header() {
 
   const navItems = [
     { href: "#about", label: t("nav.about") },
-    { href: "#experience", label: t("nav.experience") },
     { href: "#projects", label: t("nav.projects") },
-    { href: "#contact", label: t("nav.contact") },
+    { href: "#experience", label: t("nav.experience") },
+    { href: "#education", label: t("experience.education") },
+    { href: "#skills", label: language === "es" ? "Habilidades" : "Skills" },
   ]
 
   const toggleLanguage = () => {

@@ -4,7 +4,6 @@ import { useLanguage } from "@/lib/language-context"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Code, Palette, Wrench, Users } from "lucide-react"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 
 const skillCategories = [
   {
@@ -66,58 +65,53 @@ const skillCategories = [
 
 export function Skills() {
   const { t, language } = useLanguage()
-  const { ref, isVisible } = useScrollAnimation()
 
   return (
-    <section className="py-20 md:py-32 relative bg-card/30">
-      <div className="container mx-auto px-4">
-        <div ref={ref} className={`animate-on-scroll ${isVisible ? "visible" : ""}`}>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
-            <span className="text-primary">{`// `}</span>
-            {t("skills.title")}
-          </h2>
+    <div className="w-full">
+      <h2 className="text-2xl md:text-3xl font-bold text-center mb-4 text-foreground font-title">
+        <span className="text-primary">{`// `}</span>
+        {t("skills.title")}
+      </h2>
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {skillCategories.map((category, index) => {
-              const Icon = category.icon
-              return (
-                <Card
-                  key={category.id}
-                  className="bg-card/50 border-border backdrop-blur-sm hover:border-primary/50 transition-all duration-300"
-                  style={{ transitionDelay: `${index * 100}ms` }}
-                >
-                  <CardHeader>
-                    <CardTitle className="flex items-center gap-3 text-foreground">
-                      <div className="p-2 rounded-lg bg-primary/10">
-                        <Icon className="w-6 h-6 text-primary" />
-                      </div>
-                      <span className="xl font-title">
-                        {language === "es" ? category.titleKeyEs : category.titleKeyEn}
-                      </span>
-                    </CardTitle>
-                  </CardHeader>
-                  <CardContent>
-                    <div className="flex flex-wrap gap-2">
-                      {(category.skillsEn && language === "en"
-                        ? category.skillsEn
-                        : category.skills
-                      ).map((skill) => (
-                        <Badge
-                          key={skill}
-                          variant="outline"
-                          className="border-border hover:border-primary hover:text-primary transition-colors text-lg px-4 py-2"
-                        >
-                          {skill}
-                        </Badge>
-                      ))}
-                    </div>
-                  </CardContent>
-                </Card>
-              )
-            })}
-          </div>
-        </div>
+      <div className="grid md:grid-cols-2 gap-3">
+        {skillCategories.map((category, index) => {
+          const Icon = category.icon
+          return (
+            <Card
+              key={category.id}
+              className="bg-card/50 border-border backdrop-blur-sm hover:border-primary/50 transition-all duration-300"
+              style={{ transitionDelay: `${index * 100}ms` }}
+            >
+              <CardHeader className="p-4 pb-2">
+                <CardTitle className="flex items-center gap-2 text-foreground text-sm">
+                  <div className="p-1.5 rounded-lg bg-primary/10">
+                    <Icon className="w-4 h-4 text-primary" />
+                  </div>
+                  <span className="font-title">
+                    {language === "es" ? category.titleKeyEs : category.titleKeyEn}
+                  </span>
+                </CardTitle>
+              </CardHeader>
+              <CardContent className="p-4 pt-0">
+                <div className="flex flex-wrap gap-1">
+                  {(category.skillsEn && language === "en"
+                    ? category.skillsEn
+                    : category.skills
+                  ).map((skill) => (
+                    <Badge
+                      key={skill}
+                      variant="outline"
+                      className="border-border hover:border-primary hover:text-primary transition-colors text-xs px-2 py-0.5"
+                    >
+                      {skill}
+                    </Badge>
+                  ))}
+                </div>
+              </CardContent>
+            </Card>
+          )
+        })}
       </div>
-    </section>
+    </div>
   )
 }

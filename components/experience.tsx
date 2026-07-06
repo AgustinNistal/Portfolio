@@ -154,35 +154,35 @@ function ExperienceCard({ item, index, language }: { item: ExperienceItem; index
       style={{ transitionDelay: `${index * 100}ms` }}
     >
       <Card className="bg-card/50 border-border hover:border-primary/50 transition-all duration-300 backdrop-blur-sm h-full">
-        <CardContent className="p-6">
-          <div className="flex items-start gap-4">
-            <div className="p-2 rounded-lg bg-primary/10 text-primary shrink-0">
+        <CardContent className="p-3">
+          <div className="flex items-start gap-3">
+            <div className="p-1.5 rounded-lg bg-primary/10 text-primary shrink-0">
               {item.type === "work" ? (
-                <Briefcase className="w-5 h-5" />
+                <Briefcase className="w-4 h-4" />
               ) : (
-                <GraduationCap className="w-5 h-5" />
+                <GraduationCap className="w-4 h-4" />
               )}
             </div>
-            <div className="flex-1">
-              <h3 className="font-semibold text-foreground text-lg font-title">
+            <div className="flex-1 min-w-0">
+              <h3 className="font-semibold text-foreground text-sm font-title leading-tight">
                 {language === "es" ? item.titleEs : item.titleEn}
               </h3>
-              <p className="text-primary font-medium">
+              <p className="text-primary font-medium text-xs mt-0.5">
                 {language === "es" ? item.organizationEs : item.organizationEn}
               </p>
-              <p className="text-muted-foreground text-sm mb-3">{item.period}</p>
-              <ul className="text-muted-foreground text-sm space-y-1">
+              <p className="text-muted-foreground text-[10px] mb-2">{item.period}</p>
+              <ul className="text-muted-foreground text-[10px] space-y-0.5">
                 {(language === "es" ? item.descriptionEs : item.descriptionEn).map((desc, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="text-primary mt-1">▹</span>
-                    {desc}
+                  <li key={i} className="flex items-start gap-1.5">
+                    <span className="text-primary shrink-0">▹</span>
+                    <span className="leading-snug">{desc}</span>
                   </li>
                 ))}
               </ul>
               {item.technologies && (
-                <div className="flex flex-wrap gap-2 mt-4">
+                <div className="flex flex-wrap gap-1 mt-2">
                   {item.technologies.map((tech) => (
-                    <Badge key={tech} variant="secondary" className="bg-secondary/50 text-secondary-foreground">
+                    <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary border-none text-[9px] px-1.5 py-0">
                       {tech}
                     </Badge>
                   ))}
@@ -198,65 +198,69 @@ function ExperienceCard({ item, index, language }: { item: ExperienceItem; index
 
 export function Experience() {
   const { t, language } = useLanguage()
-  const { ref: sectionRef, isVisible: sectionVisible } = useScrollAnimation()
 
   return (
-    <section id="experience" className="py-20 md:py-32 relative bg-card/30">
-      <div className="container mx-auto px-4">
-        <div
-          ref={sectionRef}
-          className={`animate-on-scroll ${sectionVisible ? "visible" : ""}`}
-        >
-          {/* Languages Section */}
-          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground font-title">
-            <span className="text-primary">{`// `}</span>
-            {t("languages.title")}
-          </h3>
+    <div className="w-full">
+      <h2 className="text-lg md:text-xl font-bold text-center mb-3 text-foreground font-title">
+        <span className="text-primary">{`// `}</span>
+        {t("experience.title")}
+      </h2>
 
-          <div className="flex flex-wrap justify-center gap-4 max-w-3xl mx-auto mb-12">
-            {languages.map((lang, i) => (
-              <Card key={i} className="bg-card/50 border-border backdrop-blur-sm hover:border-primary/50 transition-all duration-300 min-w-[180px]">
-                <CardContent className="p-6 flex items-center gap-4">
-                  <Languages className="w-6 h-6 text-primary" />
-                  <div>
-                    <span className="text-foreground font-medium block text-lg">
-                      {language === "es" ? lang.nameEs.split(" ")[0] : lang.nameEn.split(" ")[0]}
-                    </span>
-                    <span className="text-muted-foreground text-lg">
-                      {language === "es" ? lang.levelEs : lang.levelEn}
-                    </span>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
-            <span className="text-primary">{`// `}</span>
-            {t("experience.title")}
-          </h2>
-
-          {/* Work Experience Cards */}
-          <div className="grid md:grid-cols-2 gap-6 max-w-5xl mx-auto">
-            {experienceData.map((item, index) => (
-              <ExperienceCard key={item.id} item={item} index={index} language={language} />
-            ))}
-          </div>
-
-          {/* Education Section */}
-          <h3 className="text-2xl md:text-3xl font-bold text-center mt-20 mb-12 text-foreground font-title">
-            <span className="text-accent">{`// `}</span>
-            {t("experience.education")}
-          </h3>
-
-          <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
-            {educationData.map((item, index) => (
-              <ExperienceCard key={item.id} item={item} index={index} language={language} />
-            ))}
-          </div>
-
-
-        </div>
+      {/* Work Experience Cards */}
+      <div className="grid md:grid-cols-2 gap-2">
+        {experienceData.map((item, index) => (
+          <ExperienceCard key={item.id} item={item} index={index} language={language} />
+        ))}
       </div>
-    </section>
+    </div>
   )
 }
+
+export function EducationAndLanguages() {
+  const { t, language } = useLanguage()
+
+  return (
+    <div className="w-full space-y-3">
+      {/* Languages Section */}
+      <div>
+        <h3 className="text-base md:text-lg font-bold text-center mb-2 text-foreground font-title">
+          <span className="text-primary">{`// `}</span>
+          {t("languages.title")}
+        </h3>
+
+        <div className="flex flex-wrap justify-center gap-1.5">
+          {languages.map((lang, i) => (
+            <Card key={i} className="bg-card/50 border-border backdrop-blur-sm hover:border-primary/50 transition-all duration-300 min-w-[120px]">
+              <CardContent className="p-2 flex items-center gap-2">
+                <Languages className="w-5 h-5 text-primary shrink-0" />
+                <div>
+                  <span className="text-foreground font-medium block text-xs">
+                    {language === "es" ? lang.nameEs.split(" ")[0] : lang.nameEn.split(" ")[0]}
+                  </span>
+                  <span className="text-muted-foreground text-[10px]">
+                    {language === "es" ? lang.levelEs : lang.levelEn}
+                  </span>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      </div>
+
+      {/* Education Section */}
+      <div>
+        <h3 className="text-base md:text-lg font-bold text-center mb-2 text-foreground font-title">
+          <span className="text-accent">{`// `}</span>
+          {t("experience.education")}
+        </h3>
+
+        <div className="grid md:grid-cols-3 gap-2">
+          {educationData.map((item, index) => (
+            <ExperienceCard key={item.id} item={item} index={index} language={language} />
+          ))}
+        </div>
+      </div>
+    </div>
+  )
+}
+

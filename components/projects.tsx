@@ -1,18 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useLanguage } from "@/lib/language-context"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ChevronLeft, ChevronRight, ExternalLink, Github, ZoomIn, X } from "lucide-react"
+import { ChevronLeft, ChevronRight, ExternalLink, Github, ZoomIn } from "lucide-react"
 import Image from "next/image"
-import { useScrollAnimation } from "@/hooks/use-scroll-animation"
 import {
   Dialog,
   DialogContent,
   DialogTrigger,
-  DialogClose,
   DialogTitle,
 } from "@/components/ui/dialog"
 import {
@@ -125,18 +123,20 @@ const projects: Project[] = [
       "Connection with Nest.js backend and PostgreSQL database",
     ],
     technologies: ["React Native", "Nest.js", "PostgreSQL", "TypeScript"],
-    images: ["https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121424.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121550.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121624.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121903.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121903.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122033.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122053.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122114.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122135.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122218.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122241.png"],
+    images: ["https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121424.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121550.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121624.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121903.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122033.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122053.png"],
   },
 ]
 
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
   const [currentIndex, setCurrentIndex] = useState(0)
 
-  const goToPrevious = () => {
+  const goToPrevious = (e: React.MouseEvent) => {
+    e.stopPropagation()
     setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))
   }
 
-  const goToNext = () => {
+  const goToNext = (e: React.MouseEvent) => {
+    e.stopPropagation()
     setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))
   }
 
@@ -151,10 +151,10 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
               fill
               className="object-cover transition-transform duration-500 group-hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
             <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-black/20">
-              <div className="bg-background/80 backdrop-blur-sm p-2 rounded-full shadow-lg">
-                <ZoomIn className="w-6 h-6 text-primary" />
+              <div className="bg-black/60 backdrop-blur-sm p-2 rounded-full shadow-lg border border-primary/30">
+                <ZoomIn className="w-5 h-5 text-primary" />
               </div>
             </div>
           </div>
@@ -178,8 +178,8 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
                   </CarouselItem>
                 ))}
               </CarouselContent>
-              <CarouselPrevious className="left-4 size-10 bg-background/20 hover:bg-background/40 border-none text-white" />
-              <CarouselNext className="right-4 size-10 bg-background/20 hover:bg-background/40 border-none text-white" />
+              <CarouselPrevious className="left-4 size-10 bg-black/40 hover:bg-black/60 border-primary/30 text-white" />
+              <CarouselNext className="right-4 size-10 bg-black/40 hover:bg-black/60 border-primary/30 text-white" />
             </Carousel>
           </div>
         </DialogContent>
@@ -188,50 +188,34 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
       {/* Navigation Buttons */}
       {images.length > 1 && (
         <>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute left-2 top-1/2 -translate-y-1/2 bg-background/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
+          <button
+            className="absolute left-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-all duration-200 border border-white/20 z-10"
             onClick={goToPrevious}
+            aria-label="Previous image"
           >
-            <ChevronLeft className="w-5 h-5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="icon"
-            className="absolute right-2 top-1/2 -translate-y-1/2 bg-background/50 backdrop-blur-sm opacity-0 group-hover:opacity-100 transition-opacity"
+            <ChevronLeft className="w-4 h-4" />
+          </button>
+          <button
+            className="absolute right-2 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/80 text-white rounded-full p-1 opacity-0 group-hover:opacity-100 transition-all duration-200 border border-white/20 z-10"
             onClick={goToNext}
+            aria-label="Next image"
           >
-            <ChevronRight className="w-5 h-5" />
-          </Button>
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </>
-      )}
-
-      {/* Thumbnails */}
-      {images.length > 1 && (
-        <div className="flex gap-2 mt-4 justify-center">
-          {images.map((img, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`relative w-16 h-10 rounded overflow-hidden border-2 transition-all ${index === currentIndex ? "border-primary" : "border-transparent opacity-60 hover:opacity-100"
-                }`}
-            >
-              <Image src={img} alt={`Thumbnail ${index + 1}`} fill className="object-cover" />
-            </button>
-          ))}
-        </div>
       )}
 
       {/* Dots indicator */}
       {images.length > 1 && (
-        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 flex gap-2">
+        <div className="absolute bottom-2 left-1/2 -translate-x-1/2 flex gap-1 z-10">
           {images.map((_, index) => (
             <button
               key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 rounded-full transition-all ${index === currentIndex ? "bg-primary w-4" : "bg-foreground/50"
-                }`}
+              onClick={(e) => { e.stopPropagation(); setCurrentIndex(index) }}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                index === currentIndex ? "bg-primary w-4" : "bg-white/40 w-1.5 hover:bg-white/70"
+              }`}
+              aria-label={`Go to image ${index + 1}`}
             />
           ))}
         </div>
@@ -242,90 +226,182 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
 
 export function Projects() {
   const { t, language } = useLanguage()
-  const { ref, isVisible } = useScrollAnimation()
+  const [activeProjectIndex, setActiveProjectIndex] = useState(0)
+  const [isAnimating, setIsAnimating] = useState(false)
+  const [slideDirection, setSlideDirection] = useState<"left" | "right">("left")
+  const [visible, setVisible] = useState(true)
+
+  const changeProject = (newIndex: number, direction: "left" | "right") => {
+    if (isAnimating) return
+    setIsAnimating(true)
+    setSlideDirection(direction)
+    setVisible(false)
+
+    setTimeout(() => {
+      setActiveProjectIndex(newIndex)
+      setVisible(true)
+      setTimeout(() => setIsAnimating(false), 350)
+    }, 280)
+  }
+
+  const handlePrev = () => {
+    const newIndex = activeProjectIndex === 0 ? projects.length - 1 : activeProjectIndex - 1
+    changeProject(newIndex, "right")
+  }
+
+  const handleNext = () => {
+    const newIndex = activeProjectIndex === projects.length - 1 ? 0 : activeProjectIndex + 1
+    changeProject(newIndex, "left")
+  }
+
+  const handleDot = (i: number) => {
+    if (i === activeProjectIndex) return
+    changeProject(i, i > activeProjectIndex ? "left" : "right")
+  }
+
+  const project = projects[activeProjectIndex]
 
   return (
-    <section id="projects" className="py-20 md:py-32 relative">
-      <div className="container mx-auto px-4">
-        <div ref={ref} className={`animate-on-scroll ${isVisible ? "visible" : ""}`}>
-          <h2 className="text-3xl md:text-4xl font-bold text-center mb-16 text-foreground font-title">
-            <span className="text-primary">{`// `}</span>
-            {t("projects.title")}
-          </h2>
+    <div className="w-full h-full flex flex-col">
+      {/* Header */}
+      <h2 className="text-xl md:text-2xl font-bold text-center mb-3 text-foreground font-title shrink-0">
+        <span className="text-primary">{`// `}</span>
+        {t("projects.title")}
+      </h2>
 
-          <div className="space-y-16 max-w-6xl mx-auto">
-            {projects.map((project, index) => (
-              <Card
-                key={project.id}
-                className="bg-card/50 border-border backdrop-blur-sm overflow-hidden hover:border-primary/50 transition-all duration-300"
-              >
-                <CardContent className="p-0">
-                  <div className={`grid lg:grid-cols-2 gap-0 ${index % 2 === 1 ? "lg:grid-flow-dense" : ""}`}>
-                    {/* Image Carousel */}
-                    <div className={`p-6 ${index % 2 === 1 ? "lg:col-start-2" : ""}`}>
-                      <ImageCarousel images={project.images} title={language === "es" ? project.titleEs : project.titleEn} />
-                    </div>
+      {/* Counter */}
+      <div className="flex items-center justify-between mb-2 shrink-0">
+        <div className="flex gap-1.5">
+          {projects.map((_, i) => (
+            <button
+              key={i}
+              onClick={() => handleDot(i)}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                i === activeProjectIndex ? "bg-primary w-5" : "bg-white/25 w-1.5 hover:bg-white/50"
+              }`}
+              aria-label={`Go to project ${i + 1}`}
+            />
+          ))}
+        </div>
+        <span className="text-xs text-muted-foreground font-mono">
+          {String(activeProjectIndex + 1).padStart(2, "0")} / {String(projects.length).padStart(2, "0")}
+        </span>
+      </div>
 
-                    {/* Content */}
-                    <div className="p-6 lg:p-8 flex flex-col justify-center">
-                      <div className="flex items-center gap-3 mb-2">
-                        <Badge variant="outline" className="border-primary text-primary text-lg px-3 py-1">
-                          {language === "es" ? project.roleEs : project.roleEn}
-                        </Badge>
-                        <span className="text-muted-foreground text-lg">{project.period}</span>
-                      </div>
+      {/* Slide area */}
+      <div className="relative flex-1 min-h-0 overflow-hidden">
+        {/* Prev / Next arrows */}
+        <button
+          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-primary/80 border border-primary/30 hover:border-primary text-white rounded-full w-7 h-7 flex items-center justify-center transition-all duration-200 disabled:opacity-40 -translate-x-2"
+          onClick={handlePrev}
+          disabled={isAnimating}
+          aria-label="Previous project"
+        >
+          <ChevronLeft className="w-4 h-4" />
+        </button>
+        <button
+          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-primary/80 border border-primary/30 hover:border-primary text-white rounded-full w-7 h-7 flex items-center justify-center transition-all duration-200 disabled:opacity-40 translate-x-2"
+          onClick={handleNext}
+          disabled={isAnimating}
+          aria-label="Next project"
+        >
+          <ChevronRight className="w-4 h-4" />
+        </button>
 
-                      <h3 className="text-2xl md:text-3xl font-bold text-foreground mb-4 font-title">
-                        {language === "es" ? project.titleEs : project.titleEn}
-                      </h3>
+        {/* Project card with slide animation */}
+        <div
+          className="h-full transition-all duration-280 ease-in-out px-4"
+          style={{
+            opacity: visible ? 1 : 0,
+            transform: visible
+              ? "translateX(0)"
+              : slideDirection === "left"
+              ? "translateX(-30px)"
+              : "translateX(30px)",
+          }}
+        >
+          <Card className="bg-card/40 border-primary/20 backdrop-blur-sm h-full overflow-hidden">
+            <CardContent className="p-0 h-full">
+              <div className="grid grid-cols-1 md:grid-cols-2 h-full">
+                {/* Image section */}
+                <div className="p-3 flex flex-col justify-center">
+                  <ImageCarousel
+                    images={project.images}
+                    title={language === "es" ? project.titleEs : project.titleEn}
+                  />
+                </div>
 
-                      <p className="text-muted-foreground text-lg mb-6">
-                        {language === "es" ? project.descriptionEs : project.descriptionEn}
-                      </p>
-
-                      <ul className="text-muted-foreground text-lg space-y-2 mb-6">
-                        {(language === "es" ? project.detailsEs : project.detailsEn).map((detail, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <span className="text-primary mt-1">▹</span>
-                            {detail}
-                          </li>
-                        ))}
-                      </ul>
-
-                      <div className="flex flex-wrap gap-2 mb-6">
-                        {project.technologies.map((tech) => (
-                          <Badge key={tech} variant="secondary" className="bg-secondary/50 text-lg px-3 py-1">
-                            {tech}
-                          </Badge>
-                        ))}
-                      </div>
-
-                      <div className="flex gap-4">
-                        {project.liveUrl && (
-                          <Button className="bg-primary text-primary-foreground hover:bg-primary/90" asChild>
-                            <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
-                              <ExternalLink className="w-4 h-4 mr-2" />
-                              {t("projects.viewProject")}
-                            </a>
-                          </Button>
-                        )}
-                        {project.githubUrl && (
-                          <Button variant="outline" className="border-border hover:border-primary" asChild>
-                            <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
-                              <Github className="w-4 h-4 mr-2" />
-                              {t("projects.viewCode")}
-                            </a>
-                          </Button>
-                        )}
-                      </div>
-                    </div>
+                {/* Content section */}
+                <div className="p-3 flex flex-col justify-center gap-2 overflow-y-auto">
+                  {/* Role & period */}
+                  <div className="flex flex-wrap items-center gap-2">
+                    <Badge variant="outline" className="border-primary/60 text-primary text-[10px] px-2 py-0.5">
+                      {language === "es" ? project.roleEs : project.roleEn}
+                    </Badge>
+                    <span className="text-muted-foreground text-[10px]">{project.period}</span>
                   </div>
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+
+                  {/* Title */}
+                  <h3 className="text-base md:text-lg font-bold text-foreground font-title leading-tight">
+                    {language === "es" ? project.titleEs : project.titleEn}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-muted-foreground text-[11px] leading-relaxed line-clamp-3">
+                    {language === "es" ? project.descriptionEs : project.descriptionEn}
+                  </p>
+
+                  {/* Details */}
+                  <ul className="space-y-0.5">
+                    {(language === "es" ? project.detailsEs : project.detailsEn).slice(0, 4).map((detail, i) => (
+                      <li key={i} className="flex items-start gap-1.5 text-[10px] text-muted-foreground">
+                        <span className="text-primary shrink-0 mt-0.5">▹</span>
+                        <span className="leading-tight">{detail}</span>
+                      </li>
+                    ))}
+                  </ul>
+
+                  {/* Technologies */}
+                  <div className="flex flex-wrap gap-1">
+                    {project.technologies.map((tech) => (
+                      <Badge key={tech} variant="secondary" className="bg-primary/10 text-primary border-primary/20 text-[9px] px-1.5 py-0">
+                        {tech}
+                      </Badge>
+                    ))}
+                  </div>
+
+                  {/* Actions */}
+                  <div className="flex gap-2 pt-1">
+                    {project.liveUrl && (
+                      <Button
+                        className="bg-primary text-primary-foreground hover:bg-primary/80 text-[10px] h-7 px-3"
+                        asChild
+                      >
+                        <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                          <ExternalLink className="w-3 h-3 mr-1" />
+                          {t("projects.viewProject")}
+                        </a>
+                      </Button>
+                    )}
+                    {project.githubUrl && (
+                      <Button
+                        variant="outline"
+                        className="border-primary/40 hover:border-primary text-[10px] h-7 px-3"
+                        asChild
+                      >
+                        <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                          <Github className="w-3 h-3 mr-1" />
+                          {t("projects.viewCode")}
+                        </a>
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
-    </section>
+    </div>
   )
 }
