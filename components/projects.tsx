@@ -144,7 +144,7 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
     <div className="relative group">
       <Dialog>
         <DialogTrigger asChild>
-          <div className="aspect-video relative overflow-hidden rounded-lg cursor-zoom-in">
+          <div className="h-20 md:aspect-video md:h-auto relative overflow-hidden rounded-lg cursor-zoom-in">
             <Image
               src={images[currentIndex]}
               alt={`${title} - Image ${currentIndex + 1}`}
@@ -292,7 +292,7 @@ export function Projects() {
       <div className="relative flex-1 min-h-0 overflow-hidden">
         {/* Prev / Next arrows */}
         <button
-          className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-primary/80 border border-primary/30 hover:border-primary text-white rounded-full w-7 h-7 flex items-center justify-center transition-all duration-200 disabled:opacity-40 -translate-x-2"
+          className="absolute left-1 md:left-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-primary/80 border border-primary/30 hover:border-primary text-white rounded-full w-9 h-9 md:w-7 md:h-7 flex items-center justify-center transition-all duration-200 disabled:opacity-40 md:-translate-x-2"
           onClick={handlePrev}
           disabled={isAnimating}
           aria-label="Previous project"
@@ -300,7 +300,7 @@ export function Projects() {
           <ChevronLeft className="w-4 h-4" />
         </button>
         <button
-          className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-primary/80 border border-primary/30 hover:border-primary text-white rounded-full w-7 h-7 flex items-center justify-center transition-all duration-200 disabled:opacity-40 translate-x-2"
+          className="absolute right-1 md:right-0 top-1/2 -translate-y-1/2 z-20 bg-black/60 hover:bg-primary/80 border border-primary/30 hover:border-primary text-white rounded-full w-9 h-9 md:w-7 md:h-7 flex items-center justify-center transition-all duration-200 disabled:opacity-40 md:translate-x-2"
           onClick={handleNext}
           disabled={isAnimating}
           aria-label="Next project"
@@ -324,7 +324,7 @@ export function Projects() {
             <CardContent className="p-0 h-full">
               <div className="grid grid-cols-1 md:grid-cols-2 h-full">
                 {/* Image section */}
-                <div className="p-3 flex flex-col justify-center">
+                <div className="p-3 flex flex-col justify-center shrink-0">
                   <ImageCarousel
                     images={project.images}
                     title={language === "es" ? project.titleEs : project.titleEn}
@@ -332,7 +332,7 @@ export function Projects() {
                 </div>
 
                 {/* Content section */}
-                <div className="p-3 flex flex-col justify-center gap-2 overflow-y-auto">
+                <div className="p-3 flex flex-col justify-start gap-2 overflow-y-auto face-scroll">
                   {/* Role & period */}
                   <div className="flex flex-wrap items-center gap-2">
                     <Badge variant="outline" className="border-primary/60 text-primary text-[10px] px-2 py-0.5">
@@ -341,18 +341,45 @@ export function Projects() {
                     <span className="text-muted-foreground text-[10px]">{project.period}</span>
                   </div>
 
-                  {/* Title */}
-                  <h3 className="text-base md:text-lg font-bold text-foreground font-title leading-tight">
-                    {language === "es" ? project.titleEs : project.titleEn}
-                  </h3>
+                  {/* Title + Actions (mobile inline) */}
+                  <div className="flex items-center justify-between gap-2 md:block">
+                    <h3 className="text-base md:text-lg font-bold text-foreground font-title leading-tight">
+                      {language === "es" ? project.titleEs : project.titleEn}
+                    </h3>
+                    <div className="flex gap-1.5 shrink-0 md:hidden">
+                      {project.liveUrl && (
+                        <Button
+                          className="bg-primary text-primary-foreground hover:bg-primary/80 text-[10px] h-7 px-2.5"
+                          asChild
+                        >
+                          <a href={project.liveUrl} target="_blank" rel="noopener noreferrer">
+                            <ExternalLink className="w-3 h-3 mr-1" />
+                            {t("projects.viewProject")}
+                          </a>
+                        </Button>
+                      )}
+                      {project.githubUrl && (
+                        <Button
+                          variant="outline"
+                          className="border-primary/40 hover:border-primary text-[10px] h-7 px-2.5"
+                          asChild
+                        >
+                          <a href={project.githubUrl} target="_blank" rel="noopener noreferrer">
+                            <Github className="w-3 h-3 mr-1" />
+                            {t("projects.viewCode")}
+                          </a>
+                        </Button>
+                      )}
+                    </div>
+                  </div>
 
                   {/* Description */}
                   <p className="text-muted-foreground text-[11px] leading-relaxed line-clamp-3">
                     {language === "es" ? project.descriptionEs : project.descriptionEn}
                   </p>
 
-                  {/* Details */}
-                  <ul className="space-y-0.5">
+                  {/* Details - hidden on small mobile to save space */}
+                  <ul className="space-y-0.5 hidden sm:block">
                     {(language === "es" ? project.detailsEs : project.detailsEn).slice(0, 4).map((detail, i) => (
                       <li key={i} className="flex items-start gap-1.5 text-[10px] text-muted-foreground">
                         <span className="text-primary shrink-0 mt-0.5">▹</span>
@@ -370,8 +397,8 @@ export function Projects() {
                     ))}
                   </div>
 
-                  {/* Actions */}
-                  <div className="flex gap-2 pt-1">
+                  {/* Actions - only on desktop */}
+                  <div className="hidden md:flex gap-2 pt-1">
                     {project.liveUrl && (
                       <Button
                         className="bg-primary text-primary-foreground hover:bg-primary/80 text-[10px] h-7 px-3"
