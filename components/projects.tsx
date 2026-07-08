@@ -125,6 +125,39 @@ const projects: Project[] = [
     technologies: ["React Native", "Nest.js", "PostgreSQL", "TypeScript"],
     images: ["https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121424.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121550.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121624.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20121903.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122033.png", "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-05-27%20122053.png"],
   },
+  {
+    id: "trip-to-work",
+    titleEs: "Trip to Work",
+    titleEn: "Trip to Work",
+    roleEs: "Full Stack Web Developer",
+    roleEn: "Full Stack Web Developer",
+    period: "Jun. 2026 - Jul. 2026",
+    descriptionEs:
+      "Juego 2D retro desarrollado en Next.js y React que parodia el viaje cotidiano hasta la oficina. El jugador enfrenta obstáculos y situaciones absurdas en un estilo arcade clásico.",
+    descriptionEn:
+      "Retro 2D game built with Next.js and React that parodies the daily commute to the office. The player faces obstacles and absurd situations in a classic arcade style.",
+    detailsEs: [
+      "Diseño y programación del motor de juego en React",
+      "Implementación de físicas simples y colisiones",
+      "Creación de sprites y animaciones retro",
+      "Gestión de estados con hooks y context",
+      "Despliegue en Vercel"
+    ],
+    detailsEn: [
+      "Game engine design and programming in React",
+      "Implementation of simple physics and collisions",
+      "Creation of retro sprites and animations",
+      "State management with hooks and context",
+      "Deployment on Vercel"
+    ],
+    technologies: ["TypeScript", "Next.js", "React", "Three.js", "Canvas API", "Tailwind", "Antigravity"],
+    images: [
+      "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-07-07%20234721.png?updatedAt=1783478967049",
+      "https://ik.imagekit.io/ankxi835d/cv/Screenshot%202026-07-07%20234812.png?updatedAt=1783478966995"
+    ],
+    liveUrl: "https://triptowork2-d.vercel.app/"
+  }
+
 ]
 
 function ImageCarousel({ images, title }: { images: string[]; title: string }) {
@@ -212,9 +245,8 @@ function ImageCarousel({ images, title }: { images: string[]; title: string }) {
             <button
               key={index}
               onClick={(e) => { e.stopPropagation(); setCurrentIndex(index) }}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                index === currentIndex ? "bg-primary w-4" : "bg-white/40 w-1.5 hover:bg-white/70"
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${index === currentIndex ? "bg-primary w-4" : "bg-white/40 w-1.5 hover:bg-white/70"
+                }`}
               aria-label={`Go to image ${index + 1}`}
             />
           ))}
@@ -276,9 +308,8 @@ export function Projects() {
             <button
               key={i}
               onClick={() => handleDot(i)}
-              className={`h-1.5 rounded-full transition-all duration-300 ${
-                i === activeProjectIndex ? "bg-primary w-5" : "bg-white/25 w-1.5 hover:bg-white/50"
-              }`}
+              className={`h-1.5 rounded-full transition-all duration-300 ${i === activeProjectIndex ? "bg-primary w-5" : "bg-white/25 w-1.5 hover:bg-white/50"
+                }`}
               aria-label={`Go to project ${i + 1}`}
             />
           ))}
@@ -316,8 +347,8 @@ export function Projects() {
             transform: visible
               ? "translateX(0)"
               : slideDirection === "left"
-              ? "translateX(-30px)"
-              : "translateX(30px)",
+                ? "translateX(-30px)"
+                : "translateX(30px)",
           }}
         >
           <Card className="bg-card/40 border-primary/20 backdrop-blur-sm h-full overflow-hidden">
